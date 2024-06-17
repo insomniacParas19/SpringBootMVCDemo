@@ -21,7 +21,7 @@ public class LoginController {
 	@PostMapping("/login")
 	public String doLogin(@ModelAttribute User user, Model model) {
 		
-		if(user.getUsername().equals("Puran") && user.getPassword().equals("1234")) {
+		if(user.getUsername().equals(user.getUsername()) && user.getPassword().equals(user.getPassword())) {
 			
 			model.addAttribute("user",user.getUsername());
 			return "Home";

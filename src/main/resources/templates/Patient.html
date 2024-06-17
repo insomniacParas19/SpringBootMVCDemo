@@ -1,55 +1,104 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
-<title>patient</title>
+    <title>Display Patient Data</title>
+    <script th:inline="javascript">
+        function openForm() {
+            document.getElementById("patientForm").style.display = "block";
+        }
+
+        function closeForm() {
+            document.getElementById("patientForm").style.display = "none";
+        }
+    </script>
+    <style>
+        /* Style for the patient form */
+        #patientForm {
+            display: none;
+            position: absolute;
+            top: 20%;
+            left: 30%;
+            width: 40%;
+            padding: 20px;
+            background-color: #f2f2f2;
+            border: 1px solid #888;
+            z-index: 1;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        }
+    </style>
 </head>
 <body>
-<div class="container">
-				<div class="signup-content">
-					<div class="signup-form">
-						<h2 class="form-title">Patient</h2>
-					
-						<form method="post" action="/patient"  class="register-form"
-							id="register-form">
-							<div class="form-group">
-								<label for="name"><i
-									class="zmdi zmdi-account material-icons-name"></i></label> <input
-									type="text" name="fullname" id="fullname"  placeholder="Your Full Name" />
-							</div>
-							<div class="form-group">
-								<label for="email"><i class="zmdi zmdi-email"></i></label> <input
-									type="email" name="username" id="email"  placeholder="Your Email" />
-							</div>
-							<div class="form-group">
-								<label for="pass"><i class="zmdi zmdi-lock"></i></label> <input
-									type="password" name="pass" id="pass"  placeholder="Password" />
-							</div>
-							<div class="form-group">
-								<label for="re-pass"><i class="zmdi zmdi-lock-outline"></i></label>
-								<input type="password" name="re_pass" id="re_pass"
-									placeholder="Repeat your password" />
-							</div>
-							<div class="form-group">
-								<label for="contact"><i class="zmdi zmdi-lock-outline"></i></label>
-								<input type="text" name="contact"  id="contact"
-									placeholder="Contact no" />
-							</div>
-							
-							<div class="form-group form-button">
-								<input type="submit" name="signup" id="signup"
-									class="form-submit" value="" />
-							</div>
-						</form>
-					</div>
-			<!--  		<div class="signup-image">
-						<figure>
-							<img src="images/signup-image.jpg" alt="sing up image">
-						</figure>
-						<a href="/login" class="signup-image-link">I am already
-							member</a>
-					</div> -->
-				</div>
-			</div>
+    <div>
+        <button onclick="openForm()">Add Patient</button>
+    </div>
+
+    <div id="patientForm">
+        <form th:action="@{/patient}" method="post">
+            <h2>Add Patient Form</h2>
+            <label for="fname">First Name:</label>
+            <input type="text" id="fname" name="fname" required>
+            <label for="lname">Last Name:</label>
+            <input type="text" id="lname" name="lname" required><br><br>
+            <label for="gender">Gender:</label>
+            <select id="gender" name="gender" required>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+            </select>
+             <label for="phone">Phone no.:</label>
+            <input type="text" id="phone" name="phone" required>
+            <label for="dob">DoB:</label>
+            <input type="date" id="dob" name="dob" required><br><br>
+             <label for="mStatus">Marital Status:</label>
+            <select id="mStatus" name="mStatus" required>
+                <option value="married">Married</option>
+                <option value="unmarried">Unmarried</option>
+            </select>
+             <label for="presentAddr">Present Address:</label>
+            <input type="text" id="presentAddr" name="presentAddr" required><br><br>
+             <label for="comAddr">Communication Addr:</label>
+            <input type="text" id="comAddr" name="comAddr" required><br><br>
+             <label for="medHistory">Medical History:</label>
+            <input type="text" id="medHistory" name="medHistory" required><br><br>
+            <label for="otherDetails">Other Detatils:</label>
+            <input type="text" id="otherDetails" name="otherDetails" required><br><br>
+            
+            
+            <input type="submit" value="Submit">
+            <button type="button" onclick="closeForm()">Cancel</button>
+        </form>
+    </div>
+
+    <br><br>
+
+    <div id="patientTable">
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Gender</th>
+                    <th>Phone</th>
+                    <th>DoB</th>
+                    <th>Present Address</th>
+                    <th>Medical History</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Loop through patients and display them -->
+                <tr th:each="patient, rowStat : ${patient}">
+                    <td [[${patient.fname}]]></td>
+                    <td [[${patient.lname}]]></td>
+                    <td [[${patient.gender}]]></td>
+                    <td th:text="${patient.phone}"></td>
+                    <td th:text="${patient.dob}"></td>
+                    <td th:text="${patient.gender}"></td>
+                    <td th:text="${patient.presentAddr}"></td>
+                    <td th:text="${patient.comAddr}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>

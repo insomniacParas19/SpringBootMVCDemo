@@ -1,18 +1,41 @@
 package com.insotech.springbootdemo.model;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name="Patient_Tbl")
 public class Patient {
 	
+	@Id
+	@GeneratedValue
+	@Column
 	private int pid;
+	@Column
 	private String fname;
+	@Column
 	private String lname;
+	@Column
 	private String gender;
+	@Column
 	private String phone;
+	@Column
 	private String dob;
+	@Column
 	private String mstatus;
+	@Column
 	private String presentAddr;
+	@Column
 	private String comAddr;
+	@Column
 	private String medHistory;
+	@Column
 	private String otherDetails;
+	
+	
 	public int getPid() {
 		return pid;
 	}
